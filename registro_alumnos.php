@@ -1,3 +1,31 @@
+<?php
+require 'Conexion.php';
+// Procesar el formulario de registro
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  
+  
+  $nombres = $_POST["nombres"];
+  $apellidos = $_POST["apellidos"];
+  $t_doc = $_POST["t_doc"];
+  $documento = $_POST["documento"];
+  $email = $_POST["email"];
+  $telefono = $_POST["telefono"];
+  $genero = $_POST["genero"];
+  $fecha = $_POST["fecha_nacimiento"];
+  $grado = $_POST["grado"];
+
+  // Insertar el nuevo usuario en la base de datos
+  $sql = "INSERT INTO alumnos(nombres, apellidos,  t_doc, documento, email, telefono, genero, fecha_nacimiento, id_grado) VALUES ('$nombres', '$apellidos', '$t_doc', '$documento', '$email', '$telefono', '$genero', '$fecha', '$grado')";
+
+  if ($conn->query($sql) === TRUE) {
+  echo "Nuevo alumno registrado con exito ";
+  } else {
+      echo "Error al registrar alumno: " . $conn->error;
+  }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +33,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Restaurantly Bootstrap Template - Index</title>
+  <title>Registro de alumnos</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -57,7 +85,7 @@
   <header id="header" class="fixed-top d-flex align-items-cente">
     <div class="container-fluid nav-custom d-flex align-items-center  justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html" id="logito">COCODOSA</a></h1>
+      <h1 class="logo me-auto me-lg-0"><a href="dasboard.html" id="logito">COCODOSA</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -65,7 +93,7 @@
         
         <i class="bi bi-list mobile-nav-toggle"></i>
         <ul>
-        <li><a class="nav-link scrollto" href="index.php">Listado de alumnos alumnos</a></li>
+        <li><a class="nav-link scrollto" href="dasboard.php">Listado de alumnos alumnos</a></li>
           <li><a class="nav-link scrollto active" href="registro_alumnos.php">Registro de alumnos</a></li>
           <li><a class="nav-link scrollto" href="#menu">Costos Educativos</a></li>
           <li><a class="nav-link scrollto" href="#specials">Quienes Somos</a></li>
@@ -91,7 +119,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                      <form method="post" class="form" action="registro_alumnos.php">
+                      <form method="post" class="form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                         <label for="exampleInputNombres">Nombres</label>
                         <input type="text" class="form-control" id="exampleInputNombres" placeholder="Escribir nombres" name="nombres">
                       </div>
@@ -184,29 +212,7 @@
   <!-- /.container-fluid -->
   </section>
   <!-- /.content -->
-  <?php
-require 'conexion.php';
-// Procesar el formulario de registro
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $nombres = $_POST["nombres"];
-  $apellidos = $_POST["apellidos"];
-  $t_doc = $_POST["t_doc"];
-  $documento = $_POST["documento"];
-  $email = $_POST["email"];
-  $telefono = $_POST["telefono"];
-  $genero = $_POST["genero"];
-  $fecha = $_POST["fecha_nacimiento"];
-  $grado = $_POST["grado"];
-
-  // Insertar el nuevo usuario en la base de datos
-  $sql = "INSERT INTO alumnos(nombres, apellidos,  t_doc, documento, email, telefono, genero, fecha_nacimiento, id_grado) VALUES ('$nombres', '$apellidos', '$t_doc', '$documento', '$email', '$telefono', '$genero', '$fecha', '$grado')";
-  if ($conn->query($sql) === TRUE) {
-  echo "Nuevo alumno registrado con exito ";
-  } else {
-      echo "Error al registrar alumno: " . $conn->error;
-  }
-}
-?>
+  
 
   <!-- ======= Footer ======= -->
   <footer id="footer" >
